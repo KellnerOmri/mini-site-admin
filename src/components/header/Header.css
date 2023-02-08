@@ -1,0 +1,12 @@
+.header-container{
+    height: 60px;
+    background-color: var(--primary);
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 15px;
+}
+
+.main_title{
+    color: var(--white);
+}

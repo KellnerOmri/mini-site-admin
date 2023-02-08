@@ -1,0 +1,17 @@
+.add-event-container{
+  padding-block: 10px;
+  .formContainer{
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+  .checkbox-wrapper{
+    border: solid 1px var(--wolf);
+    padding-inline:8px;
+    padding-block:4px;
+    border-radius: 4px;
+    &:hover{
+      border: solid 1px var(--dark);
+    }
+  }
+}
