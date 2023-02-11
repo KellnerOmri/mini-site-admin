@@ -55,7 +55,6 @@ export const EditCategoryForm: React.FC<{ heatIndex: number }> = ({heatIndex}) =
                 }).then(() => {
                 e.stopPropagation()
             });
-            // const newCategoriesList: CategoryModel[] = [...heats[heatIndex].categoriesLIst]
             const updateCategoryIndex = newCategoriesList.findIndex((c) => c.section === selectedCategory?.section);
             newCategoriesList[updateCategoryIndex] = updateCategory;
             const newHeat: HeatModel = {...heats[heatIndex], categoriesLIst: newCategoriesList}

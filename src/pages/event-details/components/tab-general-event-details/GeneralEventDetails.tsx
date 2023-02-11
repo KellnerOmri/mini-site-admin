@@ -6,6 +6,7 @@ import {Button} from "../../../../components/button/Button";
 import {setCreateEventPopup} from "../../../../store/global.slice";
 import {GlobalApiService, headersApi} from "../../../../services/global-api.service";
 import {text} from "../../../../utils/dictionaryManagement";
+import {EditHtml} from "../../../../components/edit-html/EditHtml";
 export const GeneralEventDetails=()=>{
     const dispatch = useAppDispatch();
     const {isEnglish} = useAppSelector(state => state.global);
@@ -110,17 +111,8 @@ export const GeneralEventDetails=()=>{
                     onChange={(e) => setEventFormInput({...eventFormInput, "tavTeken": e.target.checked ? 1 : 0})}
                 />
             </div>
-            <div style={{direction:isEnglish?"ltr":"rtl", textAlign:isEnglish?"left":"right"}} className={"textarea-autosize-container"}>
-                <div>{isEnglish?text.comments:text.H_comments}</div>
-                <TextareaAutosize
-                    style={{padding:4}}
-                    value={eventFormInput.comments as string}
-                    onChange={handleInput} id="margin-normal" className={"checkbox-wrapper"}
-                    placeholder={"Add comments"}
-                    minRows={0}
-                    maxRows={10}
-                    name={"comments"}/>
-            </div>
+                <EditHtml eventFormInput={eventFormInput} setEventFormInput={setEventFormInput}/>
+
             <Button functionAction={submitEditEvent} type={"submit"} title={isEnglish?text.updateEventDetails:text.H_updateEventDetails}/>
         </form>
     </div>
