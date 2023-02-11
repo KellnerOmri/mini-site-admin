@@ -2,12 +2,14 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { DataSliceModel} from "../models/data-slice.model";
 import {EventModel} from "../models/event.model";
 import {HeatModel} from "../models/heat.model";
+import {CategoryModel} from "../models/category.model";
 
 const initialState: DataSliceModel = {
   events: [],
   selectedEvent:undefined,
   heats:[],
-  selectedHeat:undefined
+  selectedHeat:undefined,
+  selectedCategory:undefined
 };
 
 export const dataSlice = createSlice({
@@ -26,6 +28,9 @@ export const dataSlice = createSlice({
     setSelectedHeat: (state, action: PayloadAction<HeatModel>) => {
       state.selectedHeat = action.payload;
     },
+    setSelectedCategory: (state, action: PayloadAction<CategoryModel>) => {
+      state.selectedCategory = action.payload;
+    },
   },
   extraReducers:{}
 });
@@ -34,7 +39,8 @@ export const {
   setEventList,
   setSelectedEvent,
   setHeatList,
-  setSelectedHeat
+  setSelectedHeat,
+  setSelectedCategory
 } = dataSlice.actions;
 
 export default dataSlice.reducer;

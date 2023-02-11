@@ -11,10 +11,15 @@ export const text = {
    noExistsEvents:"There are no exists events for you.",
    noExistsHeats:"There are no exists heats",
 
-   createYourEvent:"Create your event:",
+   noExistsCategories:"There are no exists categories",
+
+   createYourEvent:"Create event:",
    H_createYourEvent:"צור אירוע חדש",
 
-   editYourHeat:"Update your heat:",
+   editYourCategory:"Edit category:",
+   H_editYourCategory:"ערוך קטגוריה",
+
+   editYourHeat:"Update heat:",
    H_editYourHeat:"עדכון מקצה",
 
    isAmamiHeat:"Is Amami heat",

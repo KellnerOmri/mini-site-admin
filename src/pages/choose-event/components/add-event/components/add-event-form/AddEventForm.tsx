@@ -53,7 +53,6 @@ export const AddEventForm = () => {
         setEventFormInput({...eventFormInput, [name]: newValue as string | number})
     };
     const submitFunction = (e: any) => {
-        console.log("submitFunction event")
         dispatch(setCreateEventPopup(false))
         fetch(`${GlobalApiService}/api/v1/event`,
             {

@@ -4,14 +4,15 @@ import {Paper, TextField} from "@mui/material";
 import {useAppDispatch, useAppSelector} from "../../../../../app/hooks";
 import {Button} from "../../../../../components/button/Button";
 import {Icon} from "../../../../../components/icon/Icon";
-import {setHeatList} from "../../../../../store/data.slice";
+import {setHeatList, setSelectedCategory} from "../../../../../store/data.slice";
 import {HeatModel} from "../../../../../models/heat.model";
 import {CategoryModel} from "../../../../../models/category.model";
 import {AlertPopup} from "../../../../../components/alert-popup/AlertPopup";
 import {text} from "../../../../../utils/dictionaryManagement";
 import {GlobalApiService, headersApi} from "../../../../../services/global-api.service";
+import { setEditCategoryPopup} from "../../../../../store/global.slice";
 
-export const AddCategoryToList: React.FC<{ heat: HeatModel, index: number }> = ({heat, index}) => {
+export const AddCategoryToList: React.FC<{ heat: HeatModel, index: number ,setHeatIndex:any}> = ({heat, index,setHeatIndex}) => {
     const dispatch = useAppDispatch();
     const {isEnglish} = useAppSelector(state => state.global);
     const {heats} = useAppSelector(state => state.data);
@@ -55,6 +56,11 @@ export const AddCategoryToList: React.FC<{ heat: HeatModel, index: number }> = (
         setNewSortKey("");
         e.preventDefault()
     };
+    const editCategory=(editCategory:CategoryModel)=>{
+        setHeatIndex(index)
+        dispatch(setSelectedCategory(editCategory))
+        dispatch(setEditCategoryPopup(true))
+    }
     const removeCategory = (deleteItem: CategoryModel) => {
         const newCategoriesList: CategoryModel[] = [...heats[index].categoriesLIst]
         console.log(newCategoriesList,"newCategoriesList")
@@ -78,10 +84,14 @@ export const AddCategoryToList: React.FC<{ heat: HeatModel, index: number }> = (
         const newHeatsArray: HeatModel[] = [...heats];
         newHeatsArray[index] = newHeat;
         dispatch(setHeatList(newHeatsArray))
-
-
-
     };
+
+    const titles = ["Sort key", "Description", "Action"];
+    const H_titles = ["מספר מיון", "תיאור הקטגוריה", "פעולה"];
+
+    const getTitlesByLanguage=():string[]=>{
+        return isEnglish?titles:H_titles.reverse();
+    }
 
     return (
         <div className={"add-categories-wrapper"}>
@@ -118,25 +128,54 @@ export const AddCategoryToList: React.FC<{ heat: HeatModel, index: number }> = (
                         required={true}
                     />
                 </form>
-                <div className={"category-list-container"}>
-                    {heat?.categoriesLIst?.map((item, index) => (
-                        <div style={{direction: isEnglish ? "ltr" : "rtl", textAlign: isEnglish ? "left" : "right"}}
-                             className={"category-list-item"} key={index}>
-                            <div className={"sort-key-container"}>
-                                <span>Sort Key : {item.sortKey}</span>
-                            </div>
+                    {heat?.categoriesLIst.length > 0 ? <div>
+                            <table className={"table-style"}>
+                                <thead>
+                                <tr className={"first-row row"}>
+                                    {getTitlesByLanguage().map((title, index) => {
+                                        return (
+                                            <th key={index} className={"table-headers"}>
+                                                <span className={`${index===titles.length-1?"last-title":""}`}>{title}</span>
+                                            </th>
+                                        );
+                                    })}
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {heat?.categoriesLIst.map((category, index) => {
+                                    return  isEnglish ? <tr key={index}>
 
-                            <div className={"description-wrapper"}>
-                                <span>{`${item.description}`}</span>
-                            </div>
+                                            <td>{category.sortKey}</td>
+                                            <td>{category.description}</td>
+                                            <td className={"action-category-wrapper"} style={{justifyContent:"end"}}>
+                                                <div className={"edit-wrapper"} onClick={() => editCategory(category)}>
+                                                    <Icon name={"editIcon"}/>
+                                                </div>
+                                                <div className={"close_x-wrapper"} onClick={() => removeCategory(category)}>
+                                                    <Icon name={"close_x"}/>
+                                                </div>
+                                            </td>
+                                        </tr>:
+                                        <tr key={index}>
+                                            <td className={"action-category-wrapper"}>
+                                                <div className={"close_x-wrapper"} onClick={() => removeCategory(category)}>
+                                                    <Icon name={"close_x"}/>
+                                                </div>
+                                                <div className={"edit-wrapper"} onClick={() => editCategory(category)}>
+                                                    <Icon name={"editIcon"}/>
+                                                </div>
+                                            </td>
+                                            <td>{category.description}</td>
+                                            <td style={{display:"flex",justifyContent:"end"}}>{category.sortKey}</td>
+                                        </tr>
 
-
-                            <div className={"close_x-wrapper"} onClick={() => removeCategory(item)}>
-                                <Icon name={"close_x"}/>
-                            </div>
-                        </div>
-                    ))}
-                </div>
+                                })}
+                                </tbody>
+                            </table>
+                        </div> :
+                        <div className={"alert-style"}>
+                            <span className={"alert-style"}>{text.noExistsCategories}</span>
+                        </div>}
             </Paper>
         </div>
     );
