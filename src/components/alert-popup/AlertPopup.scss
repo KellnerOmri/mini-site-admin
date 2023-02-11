@@ -1,0 +1,30 @@
+.popup-holder {
+  display: flex;
+  width: 100%;
+
+  .warning-icon-holder{
+    flex: 1;
+
+    .warning-icon-bg{
+      width: 60px;
+      border-radius: 50%;
+      background-color: yellow;
+      padding: 10px;
+    }
+  }
+
+  .popup-main-text {
+    flex: 4;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 20px;
+    padding-block: 10px;
+  }
+
+  .empty-side-area {
+    flex: 1;
+    height: 10px;
+  }
+}

@@ -14,6 +14,7 @@ export const Button: React.FC<Props> = ({
                                             extendedFunction,
                                             selected = false,
                                             width = "auto",
+                                            height = "auto",
                                             fontSize = 14,
                                             form = "",
                                             type = "button"
@@ -27,7 +28,7 @@ export const Button: React.FC<Props> = ({
             className={`button-container ${size} ${color} ${isDisable ? "disabled" : ""} ${selected ? "selected" : ""}`}>
             {iconKey && <Icon name={iconKey}></Icon>}
             {title && (
-                <span style={{width, fontSize}} className="button-title typography-input">
+                <span style={{width,height, fontSize}} className="button-title typography-input">
           {title}
         </span>
             )}

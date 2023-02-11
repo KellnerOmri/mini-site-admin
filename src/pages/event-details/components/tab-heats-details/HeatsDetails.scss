@@ -1,13 +1,9 @@
-.choose-event-container {
-  margin-top: 40px;
-  width: 100%;
-
+.heats-details-container{
   .event-list-wrapper {
     margin-top: 20px;
     display: flex;
     flex-direction: column;
     gap: 8px;
-
     .table-style {
       width: 100%;
       text-align: left;
@@ -17,6 +13,7 @@
           cursor: default;
           background: white;
           border-bottom: 1px solid;
+
           &:hover {
             background: white;
           }
@@ -27,7 +24,6 @@
         &:hover {
           background: lightblue;
         }
-
         background: aliceblue;
         display: flex;
         justify-content: space-between;
@@ -47,16 +43,5 @@
 
     }
   }
-  .alert-style{
-    margin-top: 5px;
-    font-size: 20px;
-    color: var(--alert);
-  }
-  .add-event-button-wrapper{
-    display: flex;
-    justify-content: center;
-    margin-top: 20px;
-  }
+
 }
-
-

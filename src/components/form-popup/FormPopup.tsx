@@ -1,23 +1,20 @@
 import { Dialog, Transition } from '@headlessui/react'
 import React, { Fragment } from 'react'
-import {useAppDispatch, useAppSelector} from "../../../../app/hooks";
-import {setCreateEventPopup} from "../../../../store/global.slice";
-import {Icon} from "../../../../components/icon/Icon";
-import './AddEvent.scss'
-import {Button} from "../../../../components/button/Button";
-import {text} from "../../../../utils/dictionaryManagement";
-import {AddEventForm} from "./components/add-event-form/AddEventForm";
-export const AddEvent=()=> {
-    const dispatch = useAppDispatch();
-    const {createEventPopupIsOpen} = useAppSelector(state => state.global);
+import {Icon} from "../icon/Icon";
+import './FormPopup.scss'
+import {Button} from "../button/Button";
+import {text} from "../../utils/dictionaryManagement";
+import {useAppSelector} from "../../app/hooks";
+export const FormPopup:React.FC<{ children: React.ReactNode ,title:string,formId:string,show:boolean,closeModalFunction:any}>=({children,title,formId,show,closeModalFunction})=> {
+    const {isEnglish} = useAppSelector(state => state.global);
 
     const closeModal=() =>{
-        dispatch(setCreateEventPopup(false))
+        closeModalFunction()
     }
 
     return (
         <>
-            <Transition appear show={createEventPopupIsOpen} as={Fragment}>
+            <Transition appear show={show} as={Fragment}>
                 <Dialog as="div" className="dialog relative z-10" onClose={closeModal}>
                     <Transition.Child
                         as={Fragment}
@@ -50,17 +47,17 @@ export const AddEvent=()=> {
                                     </div>
                                     <Dialog.Title
                                         as="h3"
-                                        className="text-lg font-medium leading-6 text-gray-900"
+                                        className="text-lg font-medium leading-6 text-gray-900 text-center"
                                     >
-                                        {text.createYourEvent}
+                                        {title}
                                     </Dialog.Title>
                                     <div className="modal-scroll-wrapper">
-                                        <AddEventForm/>
+                                        {children}
                                     </div>
                                     <div className=" reset_default footer-customize">
                                         <div className="footer-buttons-wrapper">
-                                            <Button color="secondary" title="Cancel" functionAction={closeModal}></Button>
-                                            <Button type={"submit"} form={"add-event-form"} color="primary" title="Create new event" functionAction={()=>{}}></Button>
+                                            <Button color="secondary" title={isEnglish?text.cancel:text.H_cancel} functionAction={closeModal}></Button>
+                                            <Button type={"submit"} form={formId} color="primary" title={isEnglish?text.save:text.H_save} functionAction={()=>{}}></Button>
                                         </div>
                                     </div>
                                 </Dialog.Panel>

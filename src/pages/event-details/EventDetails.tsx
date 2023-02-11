@@ -1,34 +1,86 @@
 import './EventDetails.scss'
 import {text} from "../../utils/dictionaryManagement";
 import { Tab } from '@headlessui/react';
-import {HeatsDetails} from "./components/heats-details/HeatsDetails";
-import {GeneralEventDetails} from "./components/general-event-details/GeneralEventDetails";
+import {HeatsDetails} from "./components/tab-heats-details/HeatsDetails";
+import {GeneralEventDetails} from "./components/tab-general-event-details/GeneralEventDetails";
+import {useAppDispatch, useAppSelector} from "../../app/hooks";
+import {CategoriesManagement} from "./components/tab-categories/CategoriesManagement";
+import {useEffect} from "react";
+import {GlobalApiService} from "../../services/global-api.service";
+import {setHeatList} from "../../store/data.slice";
+import {HeatModel} from "../../models/heat.model";
+import {CategoryModel} from "../../models/category.model";
 export const EventDetails=()=>{
+    const dispatch = useAppDispatch();
+
+    const {isEnglish} = useAppSelector(state => state.global);
+    const {selectedEvent} = useAppSelector(state => state.data);
+
     const tabClassName=(selected:boolean)=>{
         return  selected
             ? 'selected-tab'
             : 'not-selected-tab'
     }
-    return <div className={"event-details-container"}>
-        <span className={"typography-h1-heading"}>{text.eventDetails}</span>
-            <Tab.Group>
-                <div className={"tab-list-wrapper"}>
+    const titles = ["General","Heats","Sponsor","Maps","Categories"]
+    const H_titles = ["כללי","מקצים","ספונסרים","מפות","קטגוריות"]
 
-                <Tab.List className=" tab-list">
-                    <Tab className={({selected})=>{ return tabClassName(selected)}}>General</Tab>
-                    <Tab className={({selected})=>{ return tabClassName(selected)}}>Heats</Tab>
-                    <Tab className={({selected})=>{ return tabClassName(selected)}}>Sponsor</Tab>
-                    <Tab className={({selected})=>{ return tabClassName(selected)}}>Maps</Tab>
+    const jsxTabsArray = [<GeneralEventDetails/>,<HeatsDetails/>,<div>"Content 2"</div>,<div>"Content 3"</div>,<CategoriesManagement/>]
+
+    const getTitlesByLanguage = ():string[]=>{
+        return isEnglish?titles:H_titles.reverse()
+    }
+    const getJsxByLanguage = ()=>{
+        return isEnglish?jsxTabsArray:jsxTabsArray.reverse()
+    }
+
+
+const getCategoriesByHeat=(categories:CategoryModel[],heatId:number):CategoryModel[]=>{
+        const categoryList:CategoryModel[]=[]
+    categories.forEach((category)=>{
+        if (category.heatId === heatId){
+            categoryList.push(category)
+        }
+    })
+        return categoryList
+}
+    useEffect(()=>{
+        Promise.all([
+            fetch(`${GlobalApiService}/api/v1/heat/${selectedEvent?.eventId}`),
+            fetch(`${GlobalApiService}/api/v1/category/${selectedEvent?.eventId}`)])
+            .then(res =>Promise.all(res.map(r=> r.json())))
+            .then((stats) => {
+                const newHeatsArray:HeatModel[]=[];
+                let fetchHeatList:HeatModel[]=stats[0];
+                let fetchCategoryList:CategoryModel[]=stats[1];
+                fetchHeatList.forEach((heatItem)=>{
+                    newHeatsArray.push({...heatItem,categoriesLIst:getCategoriesByHeat(fetchCategoryList,heatItem.heatId)})
+                })
+                dispatch(setHeatList(newHeatsArray))
+                console.log(stats,"status")
+            })
+            .then((info) => {
+                console.log(info,"info")
+            })
+            .then(data =>  console.log(data)).catch(error => console.log(error));
+    },[])
+
+
+    return <div className={"event-details-container"}>
+        <div style={{direction:isEnglish?"ltr":"rtl"}} className={"typography-h1-heading"}>{isEnglish?text.eventDetails:text.H_eventDetails}</div>
+            <Tab.Group defaultIndex={isEnglish?0:H_titles.length}>
+                <div className={"tab-list-wrapper"}>
+                <Tab.List className="tab-list">
+                    {getTitlesByLanguage().map((t,index)=>{
+                        return <Tab key={index} className={({selected})=>{ return tabClassName(selected)}}>{t}</Tab>
+                    })}
                 </Tab.List>
                 </div>
 
                 <Tab.Panels className={"panels-container"}>
-                    <Tab.Panel className={"tab-panel"}><GeneralEventDetails/></Tab.Panel>
-                    <Tab.Panel className={"tab-panel"}><HeatsDetails/></Tab.Panel>
-                    <Tab.Panel className={"tab-panel"}>Content 2</Tab.Panel>
-                    <Tab.Panel className={"tab-panel"}>Content 3</Tab.Panel>
+                    {getJsxByLanguage().map((jsxElement)=>{
+                        return  <Tab.Panel className={"tab-panel"}>{jsxElement}</Tab.Panel>
+                    })}
                 </Tab.Panels>
-
             </Tab.Group>
     </div>
 }

@@ -5,9 +5,10 @@ import React, {useState} from "react";
 import {Button} from "../../../../components/button/Button";
 import {setCreateEventPopup} from "../../../../store/global.slice";
 import {GlobalApiService, headersApi} from "../../../../services/global-api.service";
+import {text} from "../../../../utils/dictionaryManagement";
 export const GeneralEventDetails=()=>{
     const dispatch = useAppDispatch();
-
+    const {isEnglish} = useAppSelector(state => state.global);
     const {selectedEvent} = useAppSelector(state => state.data);
     const [eventFormInput, setEventFormInput] = useState<{ [key: string]: number | string | boolean }>(
         {
@@ -50,11 +51,9 @@ export const GeneralEventDetails=()=>{
             });
     }
     return <div className={"general-event-detils-container"}>
-        <form id={"edit-event-form"} className={"formContainer"} onSubmit={()=>{
-        }
-        }>
+        <form id={"edit-event-form"} className={"formContainer"}>
             <TextField
-                label="Event name"
+                label={isEnglish?text.eventName:text.H_eventName}
                 id="description"
                 name="description"
                 type={"text"}
@@ -63,7 +62,7 @@ export const GeneralEventDetails=()=>{
                 InputLabelProps={{shrink: true}}
             />
             <TextField
-                label="Date"
+                label={isEnglish?text.date:text.H_date}
                 id="date"
                 name="date"
                 type={"text"}
@@ -72,7 +71,7 @@ export const GeneralEventDetails=()=>{
                 InputLabelProps={{shrink: true}}
             />
             <TextField
-                label="Background color"
+                label={isEnglish?text.backgroundColor:text.H_backgroundColor}
                 id="margin-normal"
                 name="backgroundColor"
                 type={"color"}
@@ -80,7 +79,7 @@ export const GeneralEventDetails=()=>{
                 value={eventFormInput.backgroundColor}
             />
             <TextField
-                label="Secondary color"
+                label={isEnglish?text.secondaryColor:text.H_secondaryColor}
                 id="margin-normal"
                 name="secondaryColor"
                 type={"color"}
@@ -88,40 +87,41 @@ export const GeneralEventDetails=()=>{
                 value={eventFormInput.secondaryColor}
             />
             <TextField
-                label="Foreground color"
+                label={isEnglish?text.foregroundColor:text.H_foregroundColor}
                 id="margin-normal"
                 name="foregroundColor"
                 type={"color"}
                 onChange={handleInput}
                 defaultValue={eventFormInput.foregroundColor}
             />
-            <div className={"checkbox-wrapper"}>
-                <span> Show map</span>
+            <div style={{direction:isEnglish?"ltr":"rtl", textAlign:isEnglish?"left":"right"}} className={"checkbox-wrapper"}>
+                <span>{isEnglish?text.showMap:text.H_showMap}</span>
                 <Checkbox
                     value={eventFormInput.showMaps as boolean}
                     name={"showMaps"}
                     onChange={(e) => setEventFormInput({...eventFormInput, "showMaps": e.target.checked ? 1 : 0})}
                 />
             </div>
-            <div className={"checkbox-wrapper"}>
-                <span>Tav teken</span>
+            <div style={{direction:isEnglish?"ltr":"rtl", textAlign:isEnglish?"left":"right"}} className={"checkbox-wrapper"}>
+                <span>{isEnglish?text.tavTeken:text.H_tavTeken}</span>
                 <Checkbox
                     value={eventFormInput.tavTeken as boolean}
                     name={"tavTeken"}
                     onChange={(e) => setEventFormInput({...eventFormInput, "tavTeken": e.target.checked ? 1 : 0})}
                 />
             </div>
-            <div className={"add-comments-wrapper"}>
-            <TextareaAutosize
-                style={{width:"100%"}}
-                value={eventFormInput.comments as string}
-                onChange={handleInput} id="margin-normal" className={"checkbox-wrapper"}
-                placeholder={"Add comments"}
-                minRows={0}
-                maxRows={10}
-                name={"comments"}/>
+            <div style={{direction:isEnglish?"ltr":"rtl", textAlign:isEnglish?"left":"right"}} className={"textarea-autosize-container"}>
+                <div>{isEnglish?text.comments:text.H_comments}</div>
+                <TextareaAutosize
+                    style={{padding:4}}
+                    value={eventFormInput.comments as string}
+                    onChange={handleInput} id="margin-normal" className={"checkbox-wrapper"}
+                    placeholder={"Add comments"}
+                    minRows={0}
+                    maxRows={10}
+                    name={"comments"}/>
             </div>
-            <Button functionAction={submitEditEvent} type={"submit"} title={"Update event details"}/>
+            <Button functionAction={submitEditEvent} type={"submit"} title={isEnglish?text.updateEventDetails:text.H_updateEventDetails}/>
         </form>
     </div>
 }

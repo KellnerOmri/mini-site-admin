@@ -1,0 +1,34 @@
+.header-container{
+    height: 60px;
+    background-color: var(--primary);
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 15px;
+    padding-inline: 20px;
+    .main_title{
+        color: var(--white);
+    }
+.left-side{
+    color: var(--dark-grey);
+    padding-inline-start: 10px;
+    flex: 1;
+    .language-text{
+        background-color: var(--white);
+        color: var(--primary);
+        padding: 10px;
+        font-size: 18px;
+        border-radius: 50%;
+        border: 2px solid var(--dark-grey);
+    }
+}
+    .right-side{
+        color: var(--white);
+        width: 100%;
+        justify-content: end;
+        display: flex;
+        align-items: end;
+        flex: 1;
+    }
+}
+
