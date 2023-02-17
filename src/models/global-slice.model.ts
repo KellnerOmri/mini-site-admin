@@ -4,4 +4,5 @@ export interface GlobalSliceModel {
     createEventPopupIsOpen: boolean
     createHeatPopupIsOpen:boolean
     editCategoryPopupIsOpen:boolean
+    editSponsorsPopupIsOpen:boolean
 }

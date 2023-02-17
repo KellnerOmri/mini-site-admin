@@ -1,7 +1,7 @@
 import React, { useRef } from 'react';
 import { Editor } from '@tinymce/tinymce-react';
 import  './EditHtml.scss'
-export const EditHtml:React.FC<{eventFormInput:{ [key: string]: number | string | boolean },setEventFormInput:any}>=({setEventFormInput,eventFormInput})=> {
+export const EditHtml:React.FC<{eventFormInput:{ [key: string]: number | string | boolean | Date},setEventFormInput:any}>=({setEventFormInput,eventFormInput})=> {
     const editorRef:any = useRef(null);
     const log = (e:any) => {
         e.preventDefault()

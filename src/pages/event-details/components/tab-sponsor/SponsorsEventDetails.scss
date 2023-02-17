@@ -1,0 +1,114 @@
+.sponsor-event-details-container{
+.sponsor-form-wrapper{
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+
+
+
+  .add-categories-wrapper {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+
+    .action-category-wrapper{
+      gap: 8px;
+      display: flex;
+      flex-direction: row;
+    }
+    .add-categories-container {
+      display: flex;
+      flex-direction: column;
+      gap: 30px;
+      width: 70%;
+      padding-top: 50px;
+      .add-container-text-field {
+        display: flex;
+        justify-content: center;
+        gap: 10px;
+        border-bottom: 3px solid var(--primary);
+        padding: 12px;
+      }
+    }
+
+    .table-style {
+      text-align: left;
+      .close_x-wrapper {
+        border: 1px solid var(--dark);
+
+        padding: 10px;
+        background-color: var(--alert);
+        --icon-color: var(--wolf);
+        border-radius: 4px;
+        cursor: pointer;
+        &:hover{
+          background-color: var(--soil);
+        }
+      }
+      .edit-wrapper{
+        padding: 10px;
+        border-radius: 4px;
+        border: 1px solid var(--dark);
+        cursor: pointer;
+        &:hover{
+          background-color: var(--primary);
+        }
+      }
+      tr {
+        width: 100%;
+        &.first-row {
+          cursor: default;
+          background: white;
+          border-bottom: 1px solid;
+
+          .last-title{
+            display: flex;
+            justify-content: end;
+          }
+
+          &:hover {
+            background: white;
+          }
+        }
+
+        background: aliceblue;
+        display: flex;
+        justify-content: space-between;
+        td {
+          border-top: 1px solid;
+          width: 100%;
+          padding: 10px;
+          display: flex;
+          align-items: center;
+        }
+        th {
+          width: 100%;
+          padding: 10px;
+        }
+
+      };
+    }
+
+    .alert-style{
+      margin-top: 5px;
+      font-size: 20px;
+      color: var(--alert);
+    }
+    .add-event-button-wrapper{
+      display: flex;
+      justify-content: center;
+      margin-top: 20px;
+    }
+
+
+  }
+
+
+
+
+}
+
+

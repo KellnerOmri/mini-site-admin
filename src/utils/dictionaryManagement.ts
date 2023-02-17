@@ -19,6 +19,9 @@ export const text = {
    editYourCategory:"Edit category:",
    H_editYourCategory:"ערוך קטגוריה",
 
+   editYourSponsor:"Edit sponsor:",
+   H_editYourSponsor:"ערוך חוסת",
+
    editYourHeat:"Update heat:",
    H_editYourHeat:"עדכון מקצה",
 
@@ -46,14 +49,35 @@ export const text = {
    eventName:"Event name",
    H_eventName:"שם האירוע",
 
+   sponsorDescription:"Sponsor description",
+   H_sponsorDescription:"שם החסות",
+   logoUrl:"Logo Url",
+   H_logoUrl:"כתובת הלוגו",
+   sponsorLink:"Link",
+   H_sponsorLink:"כתובת החסות",
+
    date:"date",
    H_date:"תאריך",
+
+   dateTime:"///Date Time",
+   H_dateTime:"תאריך ושעה///",
+
+   endDate:"///End date",
+   H_endDate:"תאריך ושעהת סיום///",
+
+   location:"Location",
+   H_location:"מיקום",
+
+
 
    waitingForEvent:"waiting for event...",
    H_waitingForEvent:"מחכה לבחירת אירוע...",
 
    eventType:"Event type",
    H_eventType:"סוג אירוע",
+
+   status:"Event status",
+   H_status:"מצב האירוע",
 
    backgroundColor:"Background color",
    H_backgroundColor:"צבע רקע ראשי",
@@ -67,8 +91,17 @@ export const text = {
    showMap:"Show map",
    H_showMap:"הצג מפה",
 
+   isRegistrationInEventDay:"Is registration in event day?",
+   H_isRegistrationInEventDay:"האם קיימת הרשמה ביום האירוע?",
+
    tavTeken:"Tav teken",
    H_tavTeken:"תו תקן",
+
+   showParticipants:"Show participants",
+   H_showParticipants:"הצג משתתפים",
+
+   participationMedal:"participationMedal",
+   H_participationMedal:"מדליות משתתפים",
 
    addComments:"Add comments",
    H_addComments:"הוסף הערות",
@@ -104,5 +137,47 @@ export const text = {
    H_heatStartTime:"שעת הזנקה",
 
    sortKeyCannotDuplicated:"Sort key cannot be duplicate",
-   H_sortKeyCannotDuplicated:"מספר המיון אינו יכול לחזור על עצמו"
+   H_sortKeyCannotDuplicated:"מספר המיון אינו יכול לחזור על עצמו",
+
+
+
+
+   shortName:"Short name",
+   H_shortName:"שם אירוע מקוצר",
+
+   logo:"Logo link",
+   H_logo:"קישור ללוגו האירוע",
+
+   registrationUrl:"Registration url",
+   H_registrationUrl:"קישור להרשמה",
+
+   participantsListUrl:"Participants list url",
+   H_participantsListUrl:"קישור לרשימת משתתפים",
+
+   resultsUrl:"Results url",
+   H_resultsUrl:"קישור לתוצאות",
+
+   coverImage:"Cover image url",
+   H_coverImage:"קישור לתמונת רקע",
+
+   detailsImage:"Details image url",
+   H_detailsImage:"קישור לתמונת פרטים נוספים",
+
+   contactImage:"Contact image url",
+   H_contactImage:"קישור לתמונת צור קשר",
+
+   contactPhone:"Contact phone",
+   H_contactPhone:"טלפון לאיש קשר",
+
+   organizerDetails:"Organizer details",
+   H_organizerDetails:"פרטי בעל הארגון",
+
+   gatheringTime:"Gathering time",
+   H_gatheringTime:"שעת כינוס",
+
+   ceremonyTime:"Ceremony time",
+   H_ceremonyTime:"שעת טרס סיום",
+
+   enrollmentInclude:"Enrollment include",
+   H_enrollmentInclude:"מה ההרשמה כוללת",
 };

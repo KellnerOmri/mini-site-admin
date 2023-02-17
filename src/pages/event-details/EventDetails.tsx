@@ -7,9 +7,11 @@ import {useAppDispatch, useAppSelector} from "../../app/hooks";
 import {CategoriesManagement} from "./components/tab-categories/CategoriesManagement";
 import {useEffect} from "react";
 import {GlobalApiService} from "../../services/global-api.service";
-import {setHeatList} from "../../store/data.slice";
+import {setHeatList, setSponsorList} from "../../store/data.slice";
 import {HeatModel} from "../../models/heat.model";
 import {CategoryModel} from "../../models/category.model";
+import {SponsorsEventDetails} from "./components/tab-sponsor/SponsorsEventDetails";
+import {SponsorModel} from "../../models/sponsor.model";
 export const EventDetails=()=>{
     const dispatch = useAppDispatch();
 
@@ -24,7 +26,7 @@ export const EventDetails=()=>{
     const titles = ["General","Heats","Sponsor","Maps","Categories"]
     const H_titles = ["כללי","מקצים","ספונסרים","מפות","קטגוריות"]
 
-    const jsxTabsArray = [<GeneralEventDetails/>,<HeatsDetails/>,<div>"Content 2"</div>,<div>"Content 3"</div>,<CategoriesManagement/>]
+    const jsxTabsArray = [<GeneralEventDetails/>,<HeatsDetails/>,<SponsorsEventDetails/>,<div>"Content 3"</div>,<CategoriesManagement/>]
 
     const getTitlesByLanguage = ():string[]=>{
         return isEnglish?titles:H_titles.reverse()
@@ -46,16 +48,21 @@ const getCategoriesByHeat=(categories:CategoryModel[],heatId:number):CategoryMod
     useEffect(()=>{
         Promise.all([
             fetch(`${GlobalApiService}/api/v1/heat/${selectedEvent?.eventId}`),
-            fetch(`${GlobalApiService}/api/v1/category/${selectedEvent?.eventId}`)])
+            fetch(`${GlobalApiService}/api/v1/category/${selectedEvent?.eventId}`),
+            fetch(`${GlobalApiService}/api/v1/sponsor/${selectedEvent?.eventId}`)
+        ])
             .then(res =>Promise.all(res.map(r=> r.json())))
             .then((stats) => {
                 const newHeatsArray:HeatModel[]=[];
                 let fetchHeatList:HeatModel[]=stats[0];
                 let fetchCategoryList:CategoryModel[]=stats[1];
+                let fetchSponsorList:SponsorModel[]=stats[2];
                 fetchHeatList.forEach((heatItem)=>{
                     newHeatsArray.push({...heatItem,categoriesLIst:getCategoriesByHeat(fetchCategoryList,heatItem.heatId)})
                 })
                 dispatch(setHeatList(newHeatsArray))
+                dispatch(setSponsorList(fetchSponsorList))
+                console.log(fetchSponsorList,"fetchSponsorList")
                 console.log(stats,"status")
             })
             .then((info) => {
@@ -77,8 +84,8 @@ const getCategoriesByHeat=(categories:CategoryModel[],heatId:number):CategoryMod
                 </div>
 
                 <Tab.Panels className={"panels-container"}>
-                    {getJsxByLanguage().map((jsxElement)=>{
-                        return  <Tab.Panel className={"tab-panel"}>{jsxElement}</Tab.Panel>
+                    {getJsxByLanguage().map((jsxElement,index)=>{
+                        return  <Tab.Panel key={index} className={"tab-panel"}>{jsxElement}</Tab.Panel>
                     })}
                 </Tab.Panels>
             </Tab.Group>

@@ -3,13 +3,16 @@ import { DataSliceModel} from "../models/data-slice.model";
 import {EventModel} from "../models/event.model";
 import {HeatModel} from "../models/heat.model";
 import {CategoryModel} from "../models/category.model";
+import {SponsorModel} from "../models/sponsor.model";
 
 const initialState: DataSliceModel = {
   events: [],
   selectedEvent:undefined,
   heats:[],
   selectedHeat:undefined,
-  selectedCategory:undefined
+  selectedCategory:undefined,
+  selectedSponsor:undefined,
+  sponsors:[]
 };
 
 export const dataSlice = createSlice({
@@ -31,6 +34,12 @@ export const dataSlice = createSlice({
     setSelectedCategory: (state, action: PayloadAction<CategoryModel>) => {
       state.selectedCategory = action.payload;
     },
+    setSelectedSponsor: (state, action: PayloadAction<SponsorModel>) => {
+      state.selectedSponsor = action.payload;
+    },
+    setSponsorList: (state, action: PayloadAction<SponsorModel[]>) => {
+      state.sponsors = action.payload;
+    },
   },
   extraReducers:{}
 });
@@ -40,7 +49,9 @@ export const {
   setSelectedEvent,
   setHeatList,
   setSelectedHeat,
-  setSelectedCategory
+  setSelectedCategory,
+  setSponsorList,
+  setSelectedSponsor
 } = dataSlice.actions;
 
 export default dataSlice.reducer;

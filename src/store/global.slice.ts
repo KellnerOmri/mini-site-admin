@@ -5,7 +5,8 @@ const initialState: GlobalSliceModel = {
   createEventPopupIsOpen: false,
   createHeatPopupIsOpen: false,
   isEnglish:true,
-  editCategoryPopupIsOpen:false
+  editCategoryPopupIsOpen:false,
+  editSponsorsPopupIsOpen:false
 };
 export const globalSlice = createSlice({
   name: "global",
@@ -23,6 +24,9 @@ export const globalSlice = createSlice({
     setEditCategoryPopup: (state, action: PayloadAction<boolean>) => {
       state.editCategoryPopupIsOpen = action.payload;
     },
+    setEditSponsorPopup: (state, action: PayloadAction<boolean>) => {
+      state.editSponsorsPopupIsOpen = action.payload;
+    },
   },
   extraReducers: {}
 });
@@ -31,7 +35,8 @@ export const {
   setIsEnglish,
   setCreateEventPopup,
   setCreateHeatPopup,
-  setEditCategoryPopup
+  setEditCategoryPopup,
+  setEditSponsorPopup
 } = globalSlice.actions;
 
 export default globalSlice.reducer;
