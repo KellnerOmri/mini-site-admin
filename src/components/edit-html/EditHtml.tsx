@@ -18,7 +18,7 @@ export const EditHtml:React.FC<{eventFormInput:{ [key: string]: number | string 
                 initialValue={`${eventFormInput["comments"] as string}`}//"<p>Type a comments...</p>"
                 init={{
                     height: 500,
-                    menubar: false,
+                    menubar: true,
                     plugins: [
                         'a11ychecker','advlist','advcode','advtable','autolink','checklist','export',
                         'lists','link','image','charmap','preview','anchor','searchreplace','visualblocks',
