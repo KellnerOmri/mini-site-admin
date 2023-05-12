@@ -10,14 +10,14 @@ import {SponsorModel} from "../../../../models/sponsor.model";
 import {setEditSponsorPopup} from "../../../../store/global.slice";
 import {FormPopup} from "../../../../components/form-popup/FormPopup";
 import {EditSponsorForm} from "./components/edit-sponsor-form/EditSponsorForm";
-
+import emptyImage from '../../../../assets/images/empty_image.jpeg'
 export const SponsorsEventDetails = () => {
     const dispatch = useAppDispatch();
     const {isEnglish, editSponsorsPopupIsOpen} = useAppSelector(state => state.global);
     const {sponsors} = useAppSelector(state => state.data);
 
-    const H_titles = ["שם החסות", "לינק לחסות", "כתובת הלוגו", "פעולה"];
-    const titles = ["Sponsor name", "Sponsor link", "Logo url", "Action"];
+    const H_titles = ["כתובת הלוגו","שם החסות", "לינק לחסות", "פעולה"];
+    const titles = [ "Logo url","Sponsor name", "Sponsor link", "Action"];
 
 
     const getTitlesByLanguage = (): string[] => {
@@ -67,9 +67,23 @@ export const SponsorsEventDetails = () => {
                     {sponsors?.map((sponsor, index) => {
                         return isEnglish ? <tr key={index}>
 
+                                <td> {sponsor.logoUrl ? (
+                                        <img
+                                            alt="not found"
+                                            width={"70px"}
+                                            height={"56px"}
+                                            src={sponsor.logoUrl}
+                                        />
+                                    ):
+                                    <img
+                                        alt="not fouasdfafsdnd"
+                                        width={"70"}
+                                        height={"56"}
+                                        src={emptyImage}
+                                    />
+                                }</td>
                                 <td>{sponsor.description}</td>
                                 <td>{sponsor.link}</td>
-                                <td>{sponsor.logoUrl}</td>
                                 <td className={"action-category-wrapper"} style={{justifyContent: "end"}}>
                                     <div className={"edit-wrapper"} onClick={() => editSponsor(sponsor)}>
                                         <Icon name={"editIcon"}/>
@@ -88,9 +102,25 @@ export const SponsorsEventDetails = () => {
                                         <Icon name={"editIcon"}/>
                                     </div>
                                 </td>
-                                <td className={"td-style"}>{sponsor.logoUrl}</td>
                                 <td>{sponsor.link}</td>
                                 <td style={{display: "flex", justifyContent: "end"}}>{sponsor.description}</td>
+                                <td > <td className={"td-style"}>
+                                    {sponsor.logoUrl ? (
+                                            <img
+                                                alt="not found"
+                                                width={"70px"}
+                                                height={"56px"}
+                                                src={sponsor.logoUrl}
+                                            />
+                                        ):
+                                        <img
+                                            alt="not fouasdfafsdnd"
+                                            width={"70"}
+                                            height={"56"}
+                                            src={emptyImage}
+                                        />
+                                    }
+                                </td></td>
                             </tr>
 
                     })}

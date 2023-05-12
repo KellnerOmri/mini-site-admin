@@ -7,11 +7,13 @@ import {SponsorModel} from "../../../../../../models/sponsor.model";
 import {useAppDispatch, useAppSelector} from "../../../../../../app/hooks";
 import {setSponsorList} from "../../../../../../store/data.slice";
 import {GlobalApiService, headersApi} from "../../../../../../services/global-api.service";
+import {UploadImg} from "./components/UploadImg";
 export const SponsorForm=()=>{
     const {isEnglish} = useAppSelector(state => state.global);
     const {sponsors,selectedEvent} = useAppSelector(state => state.data);
     const dispatch = useAppDispatch();
     const [sponsorEventFormInput, setSponsorEventFormInput] = useState<SponsorModel|undefined>()
+    const [selectedImage,setSelectedImage]=useState<File|null>(null)
 
 
     const submitSponsorDetails = (e: any) => {
@@ -31,6 +33,7 @@ export const SponsorForm=()=>{
             .catch((err) => {
                 console.log(err.message);
             });
+        setSelectedImage(null);
         dispatch(setSponsorList([...sponsors,sponsorEventFormInput as SponsorModel]))
     }
     const handleInput = (e: any) => {
@@ -40,6 +43,10 @@ export const SponsorForm=()=>{
     };
 
     return   <form id={"sponsor-event-form"} className={"sponsor-form-wrapper"} onSubmit={submitSponsorDetails}>
+        <UploadImg
+            selectedImage={selectedImage}
+            setSelectedImage={setSelectedImage}
+            sponsorEventFormInput={sponsorEventFormInput} setSponsorEventFormInput={setSponsorEventFormInput}/>
         <TextField
             fullWidth={true}
             label={isEnglish?text.sponsorDescription:text.H_sponsorDescription}
@@ -53,18 +60,6 @@ export const SponsorForm=()=>{
         />
         <TextField
             fullWidth={true}
-            label={isEnglish?text.logoUrl:text.H_logoUrl}
-            id="logoUrl"
-            name="logoUrl"
-            type={"text"}
-            onChange={handleInput}
-            value={sponsorEventFormInput?sponsorEventFormInput.logoUrl:""}
-            InputLabelProps={{shrink: true}}
-            required={true}
-
-        />
-        <TextField
-            fullWidth={true}
             label={isEnglish?text.sponsorLink:text.H_sponsorLink}
             id="link"
             name="link"
@@ -75,6 +70,7 @@ export const SponsorForm=()=>{
             required={true}
 
         />
+
         <Button form={"sponsor-event-form"} size={"none"} functionAction={()=>{}} type={"submit"} iconKey={"plus"}/>
     </form>
 }

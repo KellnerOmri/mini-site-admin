@@ -1,0 +1,12 @@
+.upload-image-container{
+  display: flex;
+  width: 50%;
+  height: 56px;
+  gap: 10px;
+  padding-block: 4px;
+  justify-content: center;
+  .upload-icon-wrapper{
+    height: 50px;
+    width: 50px;
+  }
+}
